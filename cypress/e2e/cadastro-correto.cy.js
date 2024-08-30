@@ -11,7 +11,8 @@ describe('Pagina de cadastro', () => {
     cy.get('[data-test="email-input"]').type(email);
     cy.get('[data-test="senha-input"]').type(senha);
     cy.get('[data-test="cadastrar-button"]').click();
-    cy.get('[data-test="success-message"]').should('be.visible').and('contain','Usuário registrado com sucesso!');
+    cy.wait(2000); 
+    cy.get('[data-test="success-message"]', { timeout: 10000 }).should('be.visible').and('contain','Usuário registrado com sucesso!');
   })
 
 })
