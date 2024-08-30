@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { registerUser } from '../services/api';
-import { useNavigate } from 'react-router-dom';
 import './UserRegistration.css';
 
 function UserRegistration() {
@@ -9,8 +8,7 @@ function UserRegistration() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null); // Novo estado para a mensagem de sucesso
-    const navigate = useNavigate();
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
