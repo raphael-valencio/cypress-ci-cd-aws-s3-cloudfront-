@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: build/
+          path: build
 
   deploy:
     needs: build
@@ -44,6 +44,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build
+        
+      - name: Verificar conteúdo do diretório
+        run: |
+          echo "Listando conteúdo do diretório..."
+          ls -al
+          echo "Verificando se a pasta build existe..."
+          if [ -d "build" ]; then echo "Pasta build encontrada"; else echo "Pasta build não encontrada"; exit 1; fi
       
       - name: Instalar AWS CLI
         run: |
@@ -58,7 +65,7 @@ jobs:
 
       - name: Deploy para S3
         run: |
-          aws s3 sync build/ s3://${{ secrets.S3_BUCKET_NAME }}/ --delete
+          aws s3 sync build s3://${{ secrets.S3_BUCKET_NAME }}/ --delete
       
       - name: Invalidar cache CloudFront
         run: |
