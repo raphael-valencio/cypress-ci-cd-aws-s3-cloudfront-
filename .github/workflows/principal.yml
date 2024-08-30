@@ -42,12 +42,11 @@ jobs:
           aws-region:  ${{ secrets.AWS_REGION }}
       
       - name:  Deploy para S3
-        uses: aws-actions/aws-cli@v3
+        uses: aws-actions/aws-cli-action@v1
         with:
           aws-cli-args: 's3 sync build s3://${{ secrets.S3_BUCKET_NAME }} --delete'
       
       - name: Invalidar cache CloudFront
-        uses: aws-actions/aws-cli@v3
+        uses: aws-actions/aws-cli-action@v1
         with:
           aws-cli-args: 'cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"'
-          
