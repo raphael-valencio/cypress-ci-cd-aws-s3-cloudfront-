@@ -6,7 +6,7 @@ on:
     workflow_dispatch: # Permite execução manual do workflow
 
 jobs:
-  testar:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,12 +14,12 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-      - run: npm install
+      - run: npm ci # Instala dependências em modo somente leitura
       - run: npm run start &
       - run: npm run test:cypress
 
   build:
-    needs: testar
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,12 +27,12 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-      - run: npm install
-      - run: npm run build
+      - run: npm ci # Instala dependências em modo somente leitura
+      - run: npm run build --if-present
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: build-${{ github.run_id }}
           path: build
 
   deploy:
@@ -43,15 +43,16 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: build
+          name: build-${{ github.run_id }}
+          path: ./deploy
         
-      - name: Verificar conteúdo do diretório
+      - name: Verificar conteúdo do diretório deploy
         run: |
-          echo "Listando conteúdo do diretório..."
-          ls -al
-          echo "Verificando se a pasta build existe..."
-          if [ -d "build" ]; then echo "Pasta build encontrada"; else echo "Pasta build não encontrada"; exit 1; fi
-      
+          if [ ! -d "./deploy" ] || [ ! -f "./deploy/index.html" ]; then
+            echo "Build artifact is missing or incomplete."
+            exit 1
+          fi
+     
       - name: Instalar AWS CLI
         run: |
           sudo apt-get update
@@ -65,7 +66,7 @@ jobs:
 
       - name: Deploy para S3
         run: |
-          aws s3 sync build s3://${{ secrets.S3_BUCKET_NAME }}/ --delete
+          aws s3 sync ./deploy/ s3://${{ secrets.S3_BUCKET_NAME }}/ --delete
       
       - name: Invalidar cache CloudFront
         run: |
