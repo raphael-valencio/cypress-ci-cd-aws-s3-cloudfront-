@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-      - name: Build do projeto
         env: 
           REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL }}
       - run: |
