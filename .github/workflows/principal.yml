@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches: [ test/e2e-implementacao ]
-    workflow_dispatch: # Permite execução manual do workflow
+  workflow_dispatch: # Permite execução manual do workflow
 
 jobs:
   test:
@@ -27,8 +27,12 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-      - run: npm ci # Instala dependências em modo somente leitura
-      - run: npm run build --if-present
+      - name: Build do projeto
+        env: 
+          REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL }}
+      - run: |
+          npm ci # Instala dependências em modo somente leitura
+          npm run build --if-present
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
