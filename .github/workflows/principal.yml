@@ -16,7 +16,7 @@ jobs:
           cache: npm
       - run: npm ci # Instala dependências em modo somente leitura
       - run: npm run start &
-      - run: npm run test:cypress
+      - run: npm run test:cypressS
 
   build:
     needs: test
