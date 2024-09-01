@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://44.201.22.57:3000', // Substitua pela URL do seu backend
+    baseURL: process.env.REACT_APP_API_BASE_URL
 });
 
 export const registerUser = (userData) => {
@@ -9,7 +9,7 @@ export const registerUser = (userData) => {
 };
 
 export const login = async (email, password) => {
-    const response = await fetch("http://44.201.22.57:3000/users/login", {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const login = async (email, password) => {
 
 export const createPost = async(title, content, token) => {
     try {
-        const response = await axios.post("http://44.201.22.57:3000/posts", { title, content }, {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/posts`, { title, content }, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export const createPost = async(title, content, token) => {
 
 export const fetchPosts = async () => {
     try {
-        const response = await axios.get("http://44.201.22.57:3000/posts");
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/posts`);
         return response.data;
     } catch (error) {
         if (error.response) {
