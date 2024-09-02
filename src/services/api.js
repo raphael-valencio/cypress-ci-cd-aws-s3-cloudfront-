@@ -59,3 +59,4 @@ export const fetchPosts = async () => {
 };
 
 export default api;
+
