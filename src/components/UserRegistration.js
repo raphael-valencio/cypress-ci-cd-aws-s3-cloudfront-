@@ -36,7 +36,7 @@ function UserRegistration() {
                     <label data-test="nome-label">Nome:</label>
                     <input
                         type="text"
-                        data-test="nome-input"
+                        data-test="input-cadastroNome"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -46,7 +46,7 @@ function UserRegistration() {
                     <label data-test="email-label">Email:</label>
                     <input
                         type="email"
-                        data-test="email-input"
+                        data-test="input-cadastroEmail"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -56,7 +56,7 @@ function UserRegistration() {
                     <label data-test="senha-label">Senha:</label>
                     <input
                         type="password"
-                        data-test="senha-input"
+                        data-test="input-cadastroSenha"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -64,7 +64,7 @@ function UserRegistration() {
                 </div>
                 {error && <p data-test="error-message" className="error-message">{error}</p>}
                 {success && <p data-test="success-message" className="success-message">{success}</p>}
-                <button data-test="cadastrar-button" type="submit">Cadastrar</button>
+                <button data-test="submit-button" type="submit">Cadastrar</button>
             </form>
         </div>
     );
