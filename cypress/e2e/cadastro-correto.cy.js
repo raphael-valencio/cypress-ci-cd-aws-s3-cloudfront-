@@ -1,18 +1,15 @@
-const {faker} = require('@faker-js/faker/locale/pt_BR')
+import dadosParaTeste from "../fixtures/dadosParaTeste.json";
 
-describe('Pagina de cadastro', () => {
-  it('Deve preencher os campos do formulario corretamente e fazer um novo cadastro', () => {
-    const nome = faker.person.fullName();
-    const email = faker.internet.email();
-    const senha = faker.internet.password();
-    cy.visit('/');
-    cy.contains('a','Cadastrar Usuário').click();
-    cy.get('[data-test="nome-input"]').type(nome);
-    cy.get('[data-test="email-input"]').type(email);
-    cy.get('[data-test="senha-input"]').type(senha);
-    cy.get('[data-test="cadastrar-button"]').click();
-    cy.wait(2000); 
-    cy.get('[data-test="success-message"]', { timeout: 10000 }).should('be.visible').and('contain','Usuário registrado com sucesso!');
-  })
-
-})
+describe("Pagina de cadastro", () => {
+	beforeEach(() => {
+		cy.visit("/");
+		cy.contains("a", "Cadastrar Usuário").click();
+	});
+	it("Deve realizar o cadastro de um novo usuário preenchendo corretamente todos os campos do formulário", () => {
+		const { nome, email, senha } = dadosParaTeste;
+		cy.cadastrarUsuario(nome, email, senha);
+		cy.get('[data-test="success-message"]', { timeout: 2000 })
+			.should("be.visible")
+			.and("contain", "Usuário registrado com sucesso!");
+	});
+});
