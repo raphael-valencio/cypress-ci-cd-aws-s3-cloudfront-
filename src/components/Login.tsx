@@ -6,11 +6,11 @@ import './Login.css';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null); // Novo estado para mensagem de sucesso
+    const [error, setError] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null); // Novo estado para mensagem de sucesso
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
         setSuccessMessage(null); // Limpar mensagens anteriores
@@ -23,7 +23,7 @@ function Login() {
                 navigate('/'); // Redirecionar após 2 segundos
             }, 2000);
         } catch (err) {
-            setError(err.message);
+            setError((err as Error).message);
         }
     };
 
