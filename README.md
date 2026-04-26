@@ -1,73 +1,79 @@
-# Getting Started with Create React App
+# CI/CD - Cypress AWS S3 CloudFront
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto React com pipeline de testes automatizados Cypress integrado ao AWS S3 e CloudFront.
 
-## Available Scripts
+## 🚀 Tecnologias
 
-In the project directory, you can run:
+- **React** - Biblioteca para construção de interfaces
+- **TypeScript** - Tipagem estática para JavaScript
+- **Cypress** - Framework de testes end-to-end
+- **tsx** - Runtime TypeScript para execução rápida
+- **AWS S3** - Armazenamento de artefatos
+- **AWS CloudFront** - Distribuição de conteúdo
+
+## 📄 Scripts Disponíveis
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Inicia o aplicativo em modo de desenvolvimento.\
+Abra [http://localhost:3000](http://localhost:3000) no navegador.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Executa o runner de testes em modo interativo.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Gera o build de produção na pasta `build`.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Nota: operação irreversível. Após `eject`, não é possível voltar!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `npm run test:gerarDados`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Gera dados de teste para o Cypress usando tsx.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### `npm run test:cypress`
 
-## Learn More
+Executa o Cypress em modo headless após gerar os dados de teste.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🧩 Testes E2E com Cypress
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+O projeto utiliza Cypress para testes end-to-end automatizados.
 
-### Code Splitting
+### Estrutura de Fixtures
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `cypress/fixtures/dadosParaTeste.json` - Dados de usuário para testes
 
-### Analyzing the Bundle Size
+### Execução
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+# Gera dados de teste
+npm run test:gerarDados
 
-### Making a Progressive Web App
+# Executa Cypress headless
+npm run test:cypress
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## ☁️ Deploy AWS
 
-### Advanced Configuration
+### Pipeline CI/CD
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Build da aplicação React
+2. Upload para AWS S3
+3. Invalidação CloudFront
+4. Execução de testes Cypress
 
-### Deployment
+### Configuração
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Bucket S3**: Configurado para hospedar build estático
+- **CloudFront**: Distribuição configurada para cache e performance
+- **Cypress**: Integrado ao pipeline para validação contínua
 
-### `npm run build` fails to minify
+## 🔧 Dependências de Desenvolvimento
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-npm install axios
-npm install react-router-dom
+- `cypress` - Framework de testes E2E
+- `tsx` - Runtime TypeScript (substitui ts-node)
+- `mochawesome` - Reporter para resultados de teste
+- `typescript` - Tipagem estática
