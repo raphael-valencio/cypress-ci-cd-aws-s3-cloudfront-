@@ -27,7 +27,6 @@ function PostCreate() {
 
 		try {
 			const token = localStorage.getItem("token");
-			console.log({ title, content });
 			await createPost(title, content, token);
 			setSuccessMessage("Postagem criada com sucesso!");
 			setTitle("");

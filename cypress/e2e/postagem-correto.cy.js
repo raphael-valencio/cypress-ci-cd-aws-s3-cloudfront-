@@ -1,4 +1,4 @@
-const { faker } = require("@faker-js/faker/locale/pt_BR");
+import { faker } from "@faker-js/faker/locale/pt_BR";
 import dadosParaTeste from "../fixtures/dadosParaTeste.json";
 
 describe("Pagina de Postagem", () => {
