@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import UserRegistration from './UserRegistration';
 import Login from './Login';
 import PostCreate from './PostCreate'; 
-import { fetchPosts } from '../services/api'; // Importar a função de busca de postagens
+import { fetchPosts, Post } from '../services/api';
 import './HomePage.css';
 
 function HomePage() {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [showRegistration, setShowRegistration] = useState(false);
@@ -22,7 +22,7 @@ function HomePage() {
                 setPosts(data.posts); 
                 setTotalPages(data.totalPages);
             } catch (err) {
-                console.error(err.message);
+                console.error((err as Error).message);
             }
         };
 
@@ -47,7 +47,7 @@ function HomePage() {
         setShowLogin(false);
     };
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 

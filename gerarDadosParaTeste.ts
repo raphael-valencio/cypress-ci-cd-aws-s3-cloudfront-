@@ -1,4 +1,6 @@
-const { faker } = require('@faker-js/faker');
+import { faker } from '@faker-js/faker';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 const gerarDadosParaTeste = () => {
   return {
@@ -7,9 +9,6 @@ const gerarDadosParaTeste = () => {
     senha: faker.internet.password(),
   };
 };
-
-const fs = require('node:fs');
-const path = require('node:path');
 
 const dados = gerarDadosParaTeste();
 fs.writeFileSync(

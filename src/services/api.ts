@@ -1,22 +1,29 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+export interface Post {
+	id: string | number;
+	title: string;
+	content: string;
+}
 
 const api = axios.create({
 	baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
-export const registerUser = (userData) => {
+export const registerUser = (userData: Record<string, unknown>) => {
 	return api.post("/users", userData);
 };
 
-export const login = async (email, password) => {
+export const login = async (email: string, password: string): Promise<{ token: string }> => {
 	try {
 		const response = await api.post("/users/login", { email, password });
 		return response.data;
 	} catch (error) {
-		if (error.response) {
-			throw new Error(error.response.data.message || "Erro ao fazer login.");
+		const axiosError = error as AxiosError<{ message?: string }>;
+		if (axiosError.response) {
+			throw new Error(axiosError.response.data.message || "Erro ao fazer login.");
 		}
-		if (error.request) {
+		if (axiosError.request) {
 			throw new Error(
 				"Erro ao conectar com o servidor. Tente novamente mais tarde.",
 			);
@@ -25,7 +32,7 @@ export const login = async (email, password) => {
 	}
 };
 
-export const createPost = async (title, content, token) => {
+export const createPost = async (title: string, content: string, token: string | null) => {
 	try {
 		const response = await api.post(
 			"/posts",
@@ -39,10 +46,11 @@ export const createPost = async (title, content, token) => {
 		);
 		return response.data;
 	} catch (error) {
-		if (error.response) {
-			throw new Error(error.response.data.message || "Erro ao criar postagem.");
+		const axiosError = error as AxiosError<{ message?: string }>;
+		if (axiosError.response) {
+			throw new Error(axiosError.response.data.message || "Erro ao criar postagem.");
 		}
-		if (error.request) {
+		if (axiosError.request) {
 			throw new Error(
 				"Erro ao conectar com o servidor. Tente novamente mais tarde.",
 			);
@@ -51,17 +59,18 @@ export const createPost = async (title, content, token) => {
 	}
 };
 
-export const fetchPosts = async (page = 1, perPage = 5) => {
+export const fetchPosts = async (page = 1, perPage = 5): Promise<{ posts: Post[]; totalPages: number }> => {
 	try {
 		const response = await api.get("/posts", { params: { page, perPage } });
 		return response.data;
 	} catch (error) {
-		if (error.response) {
+		const axiosError = error as AxiosError<{ message?: string }>;
+		if (axiosError.response) {
 			throw new Error(
-				error.response.data.message || "Erro ao buscar postagens.",
+				axiosError.response.data.message || "Erro ao buscar postagens.",
 			);
 		}
-		if (error.request) {
+		if (axiosError.request) {
 			throw new Error(
 				"Erro ao conectar com o servidor. Tente novamente mais tarde.",
 			);

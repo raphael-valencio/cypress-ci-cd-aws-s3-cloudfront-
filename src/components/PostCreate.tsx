@@ -6,8 +6,8 @@ import "./PostCreate.css";
 function PostCreate() {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
-	const [error, setError] = useState(null);
-	const [successMessage, setSuccessMessage] = useState(null);
+	const [error, setError] = useState<string | null>(null);
+	const [successMessage, setSuccessMessage] = useState<string | null>(null);
 	const navigate = useNavigate();
 
 	// Verifica se o usuário está autenticado
@@ -15,7 +15,7 @@ function PostCreate() {
 		return !!localStorage.getItem("token");
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setError(null);
 		setSuccessMessage(null);
@@ -35,7 +35,7 @@ function PostCreate() {
 				navigate("/"); // Redirecionar após 2 segundos
 			}, 2000);
 		} catch (err) {
-			setError(err.message);
+			setError((err as Error).message);
 		}
 	};
 

@@ -6,10 +6,10 @@ function UserRegistration() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null); // Novo estado para a mensagem de sucesso
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null); // Novo estado para a mensagem de sucesso
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
         setSuccess(null); // Reseta a mensagem de sucesso antes de cada submissão

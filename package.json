@@ -19,8 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "test:gerarDados": "node gerarDadosParaTeste.js",
-    "test:cypress": "node gerarDadosParaTeste.js && cypress run --headless"
+    "test:gerarDados": "ts-node gerarDadosParaTeste.ts",
+    "test:cypress": "ts-node gerarDadosParaTeste.ts && cypress run --headless"
   },
   "eslintConfig": {
     "extends": [
@@ -40,12 +40,22 @@
       "last 1 safari version"
     ]
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-private-property-in-object": "^7.24.7",
     "@biomejs/biome": "1.8.3",
     "@faker-js/faker": "^8.4.1",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "cypress": "^13.13.3",
-    "mochawesome": "^7.1.3"
+    "mochawesome": "^7.1.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5"
   }
 }
