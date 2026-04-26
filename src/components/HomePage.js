@@ -59,7 +59,7 @@ function HomePage() {
                 <h1>Bem-vindo ao Blog</h1>
                 <nav>
                     <ul>
-                    <li><a href="/" onClick={handleLoginClick}>
+                    <li><a href="#!" onClick={() => { setShowLogin(false); setShowRegistration(false); setShowPostCreate(false); }}>
                             {'Pagina Inicial'}
                         </a></li>
                         <li><a href="#!" onClick={handleLoginClick}>

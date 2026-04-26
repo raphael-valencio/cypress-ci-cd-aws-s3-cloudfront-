@@ -51,9 +51,9 @@ export const createPost = async (title, content, token) => {
 	}
 };
 
-export const fetchPosts = async () => {
+export const fetchPosts = async (page = 1, perPage = 5) => {
 	try {
-		const response = await api.get("/posts");
+		const response = await api.get("/posts", { params: { page, perPage } });
 		return response.data;
 	} catch (error) {
 		if (error.response) {
